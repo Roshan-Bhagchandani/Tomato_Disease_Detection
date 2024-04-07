@@ -5,151 +5,515 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tomatoes</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      /* Style the file input to look like a button */
+      .custom-file-input {
+        display: inline-block;
+        padding: 8px 12px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #3498db;
+        border: 1px solid #3498db;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .custom-file-input:hover {
+        background-color: #2980b9;
+      }
+        /* .hide {
+      display: none;
+    } */
+
+      /* Hide the original file input */
+      #imageUpload {
+        display: none;
+      }
+    </style>
   </head>
   <body>
-
     <header>
-      <h1>Tomato Disease Detection Portal</h1></header>
-      <nav>
-        <a href="/login.html">Login</a>
-        <a href="#" class="right-side">Contact Us</a>
-        <a href="#about" >About Us</a>
-        <a href="#diseases">Diseases</a>
-        <a href="/index.html">Home</a>
-    </nav>      
+      <h1>Tomato Disease Detection Portal</h1>
+    </header>
+    <nav>
+      <a href="/login.html">Login</a>
+      <a href="#" class="right-side">Contact Us</a>
+      <a href="#about">About Us</a>
+      <a href="#diseases">Diseases</a>
+      <a href="/index.html">Home</a>
+    </nav>
     <div class="box">
+      <div class="hide">
       <p>CHOOSE AN IMAGE</p>
       <video
         loop
         src="./images/Animation - 1712172716816.webm"
         autoplay="true"
       ></video>
-      <br>
-      <button type="submit">UPLOAD</button>
+     
+      <br />
+      <form id="uploadForm" enctype="multipart/form-data">
+        <label for="imageUpload" class="custom-file-input"
+          >Select an image</label
+        >
+        <input
+          type="file"
+          id="imageUpload"
+          name="imageUpload"
+          accept="image/*"
+        />
 
+        <!-- Hidden input to track whether an image has been selected -->
+        <input
+          type="hidden"
+          id="imageSelected"
+          name="imageSelected"
+          value="0"
+        />
+
+        <br />
+
+        <script>
+          document
+            .getElementById("imageUpload")
+            .addEventListener("change", function () {
+              var fileInput = document.getElementById("imageUpload");
+              var imageSelectedInput = document.getElementById("imageSelected");
+
+              // Check if a file is selected
+              if (fileInput.files.length > 0) {
+                imageSelectedInput.value = "1"; // Set the flag to indicate an image is selected
+
+                var formData = new FormData();
+                formData.append("file", fileInput.files[0]);
+
+                fetch("https://fc93-35-185-132-99.ngrok-free.app/predict", {
+                  method: "POST",
+                  body: formData,
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    // alert("hi")
+   var element = document.querySelector('.hide');
+ element.style.display = 'none';
+                    var responseContainer =
+                      document.getElementById("responseContainer");
+                    responseContainer.innerHTML = `
+            <strong>Uploaded Image:</strong><br>
+            <img src="${URL.createObjectURL(fileInput.files[0])}" style="max-width: 300px; max-height: 300px;"><br>
+            <strong>Predicted Class:${data.pred_class}<br>Predicted Confidence:${data.pred_conf}</strong> `
+   
+                    
+                  })
+                  .catch((error) => {
+                    alert("Error:", JSON.stringify(error));
+                  });
+              }
+            });
+        </script>
+      </form>
+       </div>
+      <div id="responseContainer"></div>
     </div>
 
-    <br>
-    <br>
-    
+    <br />
+    <br />
+
     <div id="diseases">
-      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user">
-    <h1 class="special">Disease 1</h1>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    
+      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user" />
+      <h1 class="special">Disease 1</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
     </div>
 
     <div class="diseases">
-      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user">
-    <h1 class="special">Disease 1</h1>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    
+      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user" />
+      <h1 class="special">Disease 1</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
     </div>
     <div class="diseases">
-      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user">
-    <h1 class="special">Disease 1</h1>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    
+      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user" />
+      <h1 class="special">Disease 1</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
     </div>
     <div class="diseases">
-      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user">
-    <h1 class="special">Disease 1</h1>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    
+      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user" />
+      <h1 class="special">Disease 1</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
     </div>
     <div class="diseases">
-      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user">
-    <h1 class="special">Disease 1</h1>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    
+      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user" />
+      <h1 class="special">Disease 1</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
     </div>
     <div class="diseases">
-      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user">
-    <h1 class="special">Disease 1</h1>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    
+      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user" />
+      <h1 class="special">Disease 1</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
     </div>
     <div class="diseases">
-      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user">
-    <h1 class="special">Disease 1</h1>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    
+      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user" />
+      <h1 class="special">Disease 1</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
     </div>
     <div class="diseases">
-      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user">
-    <h1 class="special">Disease 1</h1>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    
+      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user" />
+      <h1 class="special">Disease 1</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
     </div>
     <div class="diseases">
-      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user">
-    <h1 class="special">Disease 1</h1>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    
+      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user" />
+      <h1 class="special">Disease 1</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
     </div>
     <div class="diseases">
-      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user">
-    <h1 class="special">Disease 1</h1>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    <p class="cleared">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis.</p>
-    
+      <img id="box" src="/images/PaperBellBact Spot.JPG" alt="user" />
+      <h1 class="special">Disease 1</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
+      <p class="cleared">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam
+        architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis
+        debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam
+        harum fugit, eaque animi. Cum nobis possimus explicabo perferendis
+        aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima
+        alias sequi perspiciatis.
+      </p>
     </div>
-      
-    
 
     <div class="bottom">
-    <h2>ABOUT US</h2><br>
-    <h3>We are Thadomal Shahani Computer Engineering Students passing out in 2024</h3>
-    <br>
-    <h4>Project Group no : 24</h4>
-    <div id="about">
-      
-      
-      <div class="pic"><img src="/images/passphoto.png" alt=""><h3>Roshan Bhagchandani</h3>
-        <a href="https://github.com/Roshan-Bhagchandani" target="_blank" rel="noopener noreferrer"><i class="fa fa-github" style="font-size:22px"></i></a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="http://www.linkedin.com/in/dhattarwalaman" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin-square" style="font-size:22px"></i></a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="http://www.instagram.com/dhattarwalaman" target="_blank" rel="noopener noreferrer"><i class="fa fa-instagram" style="font-size:22px"></i></a>
-      </div>
-      <div class="pic"><img src="/images/shanan.jpg" alt=""><h3>Shanan Shetty</h3>
-        <a href="https://github.com/Roshan-Bhagchandani" target="_blank" rel="noopener noreferrer"><i class="fa fa-github" style="font-size:22px"></i></a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="http://www.linkedin.com/in/dhattarwalaman" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin-square" style="font-size:22px"></i></a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="http://www.instagram.com/dhattarwalaman" target="_blank" rel="noopener noreferrer"><i class="fa fa-instagram" style="font-size:22px"></i></a>
-      </div>
-      <div class="pic"><img src="/images/dheeraj1.jpg" alt=""><h3>Dheeraj Chhatani</h3>
-        <a href="https://github.com/Roshan-Bhagchandani" target="_blank" rel="noopener noreferrer"><i class="fa fa-github" style="font-size:22px"></i></a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="http://www.linkedin.com/in/dhattarwalaman" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin-square" style="font-size:22px"></i></a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="http://www.instagram.com/dhattarwalaman" target="_blank" rel="noopener noreferrer"><i class="fa fa-instagram" style="font-size:22px"></i></a>
-      </div>
-      <div class="pic"><img src="/images/rashid.png" alt=""><h3>Rashid Aziz</h3>
-        <a href="https://github.com/Roshan-Bhagchandani" target="_blank" rel="noopener noreferrer"><i class="fa fa-github" style="font-size:22px"></i></a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="http://www.linkedin.com/in/dhattarwalaman" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin-square" style="font-size:22px"></i></a> &nbsp;&nbsp;|&nbsp;&nbsp;
-        <a href="http://www.instagram.com/dhattarwalaman" target="_blank" rel="noopener noreferrer"><i class="fa fa-instagram" style="font-size:22px"></i></a>
-      </div>
-
+      <h2>ABOUT US</h2>
+      <br />
+      <h3>
+        We are Thadomal Shahani Computer Engineering Students passing out in
+        2024
+      </h3>
+      <br />
+      <h4>Project Group no : 24</h4>
+      <div id="about">
+        <div class="pic">
+          <img src="/images/passphoto.png" alt="" />
+          <h3>Roshan Bhagchandani</h3>
+          <a
+            href="https://github.com/Roshan-Bhagchandani"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-github" style="font-size: 22px"></i
+          ></a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a
+            href="http://www.linkedin.com/in/dhattarwalaman"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-linkedin-square" style="font-size: 22px"></i
+          ></a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a
+            href="http://www.instagram.com/dhattarwalaman"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-instagram" style="font-size: 22px"></i
+          ></a>
+        </div>
+        <div class="pic">
+          <img src="/images/shanan.jpg" alt="" />
+          <h3>Shanan Shetty</h3>
+          <a
+            href="https://github.com/Roshan-Bhagchandani"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-github" style="font-size: 22px"></i
+          ></a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a
+            href="http://www.linkedin.com/in/dhattarwalaman"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-linkedin-square" style="font-size: 22px"></i
+          ></a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a
+            href="http://www.instagram.com/dhattarwalaman"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-instagram" style="font-size: 22px"></i
+          ></a>
+        </div>
+        <div class="pic">
+          <img src="/images/dheeraj1.jpg" alt="" />
+          <h3>Dheeraj Chhatani</h3>
+          <a
+            href="https://github.com/Roshan-Bhagchandani"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-github" style="font-size: 22px"></i
+          ></a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a
+            href="http://www.linkedin.com/in/dhattarwalaman"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-linkedin-square" style="font-size: 22px"></i
+          ></a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a
+            href="http://www.instagram.com/dhattarwalaman"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-instagram" style="font-size: 22px"></i
+          ></a>
+        </div>
+        <div class="pic">
+          <img src="/images/rashid.png" alt="" />
+          <h3>Rashid Aziz</h3>
+          <a
+            href="https://github.com/Roshan-Bhagchandani"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-github" style="font-size: 22px"></i
+          ></a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a
+            href="http://www.linkedin.com/in/dhattarwalaman"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-linkedin-square" style="font-size: 22px"></i
+          ></a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a
+            href="http://www.instagram.com/dhattarwalaman"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><i class="fa fa-instagram" style="font-size: 22px"></i
+          ></a>
+        </div>
       </div>
     </div>
-
-    
   </body>
 </html>
