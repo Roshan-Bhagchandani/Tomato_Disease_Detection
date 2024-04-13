@@ -1,0 +1,24 @@
+.custom-file-input {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #3498db;
+    border: 1px solid #3498db;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .custom-file-input:hover {
+    background-color: #2980b9;
+  }
+    /* .hide {
+  display: none;
+} */
+
+  /* Hide the original file input */
+  #imageUpload {
+    display: none;
+  }
