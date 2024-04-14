@@ -1,4 +1,9 @@
 import React from "react";
+import { AboutusCard } from "./AboutusCard";
+import dheerajImage from "../Images/dheeraj.jpeg"
+import rashidImgae from "../Images/rashid.png"
+import roshanImage from "../Images/passphoto.png"
+import shananImage from "../Images/shanan.jpg"
 
 export const Aboutus = () => {
     const data = [
@@ -6,25 +11,29 @@ export const Aboutus = () => {
             name : "Md. Rashid Aziz",
             github : "github",
             instagram : "instagram",
-            linkedin : "linekdin"
+            linkedin : "linekdin",
+            image : rashidImgae
         },
         {
             name : "Roshan Bhagchandani",
             github : "github",
             instagram : "instagram",
-            linkedin : "linekdin"
+            linkedin : "linekdin",
+            image : roshanImage
         },
         {
             name : "Dheeraj Chahatani",
             github : "github",
             instagram : "instagram",
-            linkedin : "linekdin"
+            linkedin : "linekdin",
+            image : dheerajImage
         },
         {
             name : "Shahan Shetty",
             github : "github",
             instagram : "instagram",
-            linkedin : "linekdin"
+            linkedin : "linekdin",
+            image : shananImage
         }
     ]
     return (
@@ -38,7 +47,15 @@ export const Aboutus = () => {
             <br />
             <h4>Project Group no : 24</h4>
             <div id="about">
-
+                {data.map((item, index) => (
+                <AboutusCard key={index} 
+                name = {item.name}
+                github = {item.github}
+                instagram = {item.instagram}
+                linkedin = {item.linkedin}
+                image = {item.image}
+                 />
+                ))}
             </div>
         </div>
     )
