@@ -4,6 +4,7 @@ import axios from "axios";
 
 export const Form = () => {
     const [prediction, setPrediction] = useState('');
+    const [Confidence, setConfidence] = useState('');
     const [videoVisible, setVideoVisible] = useState(true);
     const [imageUrl, setImageUrl] = useState('');
     const fileInputRef = useRef(null);
@@ -17,7 +18,7 @@ export const Form = () => {
         try {
             const formData = new FormData();
             formData.append('file', selectedFile);
-            const URL = "https://82fe-34-82-123-154.ngrok-free.app/predict"
+            const URL = "https://2270-35-236-239-79.ngrok-free.app/predict"
             // Replace 'YOUR_BACKEND_URL/predict' with the actual backend URL
             const response = await axios.post(URL, formData, {
                 headers: {
@@ -29,6 +30,7 @@ export const Form = () => {
 
             // Set prediction result
             setPrediction(response.data.pred_class);
+            setConfidence(response.data.pred_conf);
             // Hide the video
             setVideoVisible(false);
 
@@ -59,7 +61,7 @@ export const Form = () => {
                 <button onClick={handleUploadClick}>Upload</button>
                 {prediction && (
                     <div>
-                        <p>Prediction: {prediction}</p>
+                        <p>Prediction: {prediction}<br/> Confidence : {Confidence} </p>
                     </div>
                 )}
             </div>
