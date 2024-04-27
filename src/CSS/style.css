@@ -12,7 +12,9 @@ header{
     background-color: #12372A;
     height: 10%;
 }
-
+.trial{
+    font-size: 30px;
+}
 nav {
     display: flex;
     flex-direction: row-reverse;
