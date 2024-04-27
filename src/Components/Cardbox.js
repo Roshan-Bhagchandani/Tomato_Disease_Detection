@@ -2,21 +2,12 @@ import React from "react";
 import { Card } from "./Card";
 import  { useState } from "react";
 import { useTranslation } from "react-i18next";
- const languages = [
-   { value: "", text: "Options" },
-   { value: "en", text: "English" },
-   { value: "hi", text: "Hindi" },
-   { value: "bn", text: "Bengali" },
- ];
+
 export const Cardbox = () => {
   const { t } = useTranslation();
 
   const [lang, setLang] = useState("en");
-  const handleChange = (e) => {
-    setLang(e.target.value);
-    let loc = "http://localhost:3000/";
-    window.location.replace(loc + "?lng=" + e.target.value);
-  };
+
     const data = [
       {
         disease: t("Early Blight"),

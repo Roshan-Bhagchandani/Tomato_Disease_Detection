@@ -1,8 +1,9 @@
 import { React, useState, useRef } from "react";
 import video from "../Images/Animation-1712172716816.webm";
 import axios from "axios";
-
+import { useTranslation } from "react-i18next";
 export const Form = () => {
+     const { t } = useTranslation();
     const [prediction, setPrediction] = useState('');
     const [Confidence, setConfidence] = useState('');
     const [videoVisible, setVideoVisible] = useState(true);
@@ -53,12 +54,12 @@ export const Form = () => {
                         <source src={video} type="video/mp4" />
                     </video>
                 )}
-                {videoVisible && (<p>CHOOSE AN IMAGE</p>)}
+                {videoVisible && (<p>{t('CHOOSE AN IMAGE')}</p>)}
                 {imageUrl && (
                     <img src={imageUrl} alt="Uploaded" style={{ width: '200px', height: 'auto', marginTop: '20px' }} />
                 )}
                 <input ref={fileInputRef} type="file" onChange={fileUploadHandler} accept="image/*" style={{ display: 'none' }} />
-                <button onClick={handleUploadClick}>Upload</button>
+                <button onClick={handleUploadClick}>{t('Upload')}</button>
                 {prediction && (
                     <div>
                         <p>Prediction: {prediction}<br/> Confidence : {Confidence} </p>
