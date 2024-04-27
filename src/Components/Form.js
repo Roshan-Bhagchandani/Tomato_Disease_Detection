@@ -1,8 +1,9 @@
 import { React, useState, useRef } from "react";
 import video from "../Images/Animation-1712172716816.webm";
 import axios from "axios";
-
+import { useTranslation } from "react-i18next";
 export const Form = () => {
+     const { t } = useTranslation();
     const [prediction, setPrediction] = useState('');
     const [Confidence, setConfidence] = useState('');
     const [videoVisible, setVideoVisible] = useState(true);
@@ -18,7 +19,7 @@ export const Form = () => {
         try {
             const formData = new FormData();
             formData.append('file', selectedFile);
-            const URL = "https://2270-35-236-239-79.ngrok-free.app/predict"
+            const URL = "https://4d85-34-125-68-15.ngrok-free.app/predict";
             // Replace 'YOUR_BACKEND_URL/predict' with the actual backend URL
             const response = await axios.post(URL, formData, {
                 headers: {
@@ -53,12 +54,12 @@ export const Form = () => {
                         <source src={video} type="video/mp4" />
                     </video>
                 )}
-                {videoVisible && (<p>CHOOSE AN IMAGE</p>)}
+                {videoVisible && (<p>{t('CHOOSE AN IMAGE')}</p>)}
                 {imageUrl && (
                     <img src={imageUrl} alt="Uploaded" style={{ width: '200px', height: 'auto', marginTop: '20px' }} />
                 )}
                 <input ref={fileInputRef} type="file" onChange={fileUploadHandler} accept="image/*" style={{ display: 'none' }} />
-                <button onClick={handleUploadClick}>Upload</button>
+                <button onClick={handleUploadClick}>{t('Upload')}</button>
                 {prediction && (
                     <div>
                         <p>Prediction: {prediction}<br/> Confidence : {Confidence} </p>
