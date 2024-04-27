@@ -18,7 +18,7 @@ export const Form = () => {
         try {
             const formData = new FormData();
             formData.append('file', selectedFile);
-            const URL = "https://2270-35-236-239-79.ngrok-free.app/predict"
+            const URL = "https://4d85-34-125-68-15.ngrok-free.app/predict";
             // Replace 'YOUR_BACKEND_URL/predict' with the actual backend URL
             const response = await axios.post(URL, formData, {
                 headers: {

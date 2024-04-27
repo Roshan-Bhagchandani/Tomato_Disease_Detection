@@ -1,17 +1,44 @@
 import React from "react";
 import { Card } from "./Card";
-
+import  { useState } from "react";
+import { useTranslation } from "react-i18next";
+ const languages = [
+   { value: "", text: "Options" },
+   { value: "en", text: "English" },
+   { value: "hi", text: "Hindi" },
+   { value: "bn", text: "Bengali" },
+ ];
 export const Cardbox = () => {
+  const { t } = useTranslation();
+
+  const [lang, setLang] = useState("en");
+  const handleChange = (e) => {
+    setLang(e.target.value);
+    let loc = "http://localhost:3000/";
+    window.location.replace(loc + "?lng=" + e.target.value);
+  };
     const data = [
-        {
-            disease : "disease1",
-            about : "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis."
-        },
-        {
-            disease : "disease1",
-            about : "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem nam architecto deleniti, enim dolore ut omnis! Dignissimos dolor quis debitis soluta magnam cupiditate iure tempore omnis repellendus aliquam harum fugit, eaque animi. Cum nobis possimus explicabo perferendis aspernatur a consequatur tempora ad dignissimos, enim saepe nihil minima alias sequi perspiciatis."
-        }
-    ]
+      {
+        disease: t("Early Blight"),
+        about: t("early-para"),
+      },
+      {
+        disease: t("Late Blight"),
+        about: t("late-para"),
+      },
+      {
+        disease: t("Bacterial Spot"),
+        about: t("bacterial-para"),
+      },
+      {
+        disease: t("Tomato Mosaic Virus"),
+        about: t("tomato-para"),
+      },
+      {
+        disease: t("Septoria Leaf Spot"),
+        about: t("septoria-para"),
+      },
+    ];
     return (
         <div>
             {data.map((item, index) => (
