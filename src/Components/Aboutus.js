@@ -4,32 +4,35 @@ import dheerajImage from "../Images/dheeraj.jpeg"
 import rashidImgae from "../Images/rashid.png"
 import roshanImage from "../Images/passphoto.png"
 import shananImage from "../Images/shanan.jpg"
+import { useTranslation } from "react-i18next";
 
 export const Aboutus = () => {
+     const { t } = useTranslation();
+
     const data = [
         {
-            name : "Md. Rashid Aziz",
+            name : t("Md. Rashid Aziz"),
             github : "github",
             instagram : "instagram",
             linkedin : "linekdin",
             image : rashidImgae
         },
         {
-            name : "Roshan Bhagchandani",
+            name : t("Roshan Bhagchandani"),
             github : "github",
             instagram : "instagram",
             linkedin : "linekdin",
             image : roshanImage
         },
         {
-            name : "Dheeraj Chahatani",
+            name : t("Dheeraj Chhatani"),
             github : "github",
             instagram : "instagram",
             linkedin : "linekdin",
             image : dheerajImage
         },
         {
-            name : "Shahan Shetty",
+            name : t("Shahan Shetty"),
             github : "github",
             instagram : "instagram",
             linkedin : "linekdin",
@@ -37,26 +40,26 @@ export const Aboutus = () => {
         }
     ]
     return (
-        <div className="bottom">
-            <h2>ABOUT US</h2>
-            <br />
-            <h3>
-                We are Thadomal Shahani Computer Engineering Students passing out in
-                2024
-            </h3>
-            <br />
-            <h4>Project Group no : 24</h4>
-            <div id="about">
-                {data.map((item, index) => (
-                <AboutusCard key={index} 
-                name = {item.name}
-                github = {item.github}
-                instagram = {item.instagram}
-                linkedin = {item.linkedin}
-                image = {item.image}
-                 />
-                ))}
-            </div>
+      <div className="bottom">
+        <h2>{t('About Us')}</h2>
+        <br />
+        <h3>
+         {t("We are Thadomal Shahani Computer Engineering Students passing out in 2024")}
+        </h3>
+        <br />
+        <h4>{t("Project Group no : 24")}</h4>
+        <div id="about">
+          {data.map((item, index) => (
+            <AboutusCard
+              key={index}
+              name={item.name}
+              github={item.github}
+              instagram={item.instagram}
+              linkedin={item.linkedin}
+              image={item.image}
+            />
+          ))}
         </div>
-    )
+      </div>
+    );
 }
