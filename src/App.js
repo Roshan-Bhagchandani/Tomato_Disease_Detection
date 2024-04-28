@@ -1,20 +1,25 @@
-import { Header } from "./Components/Header";
-import { Navbar } from "./Components/Navbar";
 
 import "./CSS/style.css"
 import "./CSS/index.css"
-import { Form } from "./Components/Form";
-import { Cardbox } from "./Components/Cardbox";
-import { Aboutus } from "./Components/Aboutus";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Home } from "./Components/Home";
+import { Login } from "./Components/Login";
+import { NotFound } from "./Components/NotFound";
+import { Header } from "./Components/Header";
+import { Disease } from "./Components/Disease";
 
 function App() {
   return (
     <div className="App">
-      <Header/>
-      <Navbar/>
-      <Form/>
-      <Cardbox/>
-      <Aboutus/>
+      <Router>
+          <Header/>
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route exact path="/login" element={<Login />} />
+              <Route exact path="/disease/:id" element={<Disease/>} />
+              <Route exact path="*" element={NotFound}/>
+            </Routes>
+        </Router>
     </div>
   );
 }
