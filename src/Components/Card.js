@@ -2,7 +2,7 @@ import React from "react";
 import pic from "../Images/tomato1.jpg"
 
 export const Card = (props) => {
-    const {disease, about} = props;
+    const {disease, about } = props;
     return (
         <div id="diseases">
             <img id="box" src= {pic} alt="user" />
