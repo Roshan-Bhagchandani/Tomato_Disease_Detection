@@ -23,7 +23,7 @@ setLang(queryParams.get("lng"))
       ];
         const handleChange = (e) => {
           setLang(e.target.value);
-          let loc = "http://localhost:3000/";
+          let loc = window.location;
           window.location.replace(loc + "?lng=" + e.target.value);
         };
     return (
@@ -35,7 +35,7 @@ setLang(queryParams.get("lng"))
         <a href="#about">{t("About Us")}</a>
         <a href="#diseases">{t("Diseases")}</a>
         <a href="/index.html">{t("HOME")}</a>
-        <select value={lang} onChange={handleChange}>
+        <select value={lang} onChange={handleChange} className="lang">
           {languages.map((item) => {
             return (
               <option key={item.value} value={item.value}>

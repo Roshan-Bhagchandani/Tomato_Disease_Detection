@@ -47,7 +47,7 @@ export const Form = () => {
     };
 
     return (
-        <div className="box">
+        <div className="box box1">
             <div className="hide">
                 {videoVisible && (
                     <video loop autoPlay style={{ width: '200px', height: 'auto', marginTop: '20px' }}>
