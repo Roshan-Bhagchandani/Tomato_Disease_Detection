@@ -12,7 +12,7 @@ export const Aboutus = () => {
     const data = [
         {
             name : t("Md. Rashid Aziz"),
-            github : "github",
+            github : "https:/github.com/rashid642",
             instagram : "instagram",
             linkedin : "linekdin",
             image : rashidImgae

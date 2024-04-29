@@ -1,0 +1,60 @@
+.disease-details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    color:#fff;
+    background-color: #12372a;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* White shadow */
+    margin-top: 30px;
+  }
+  
+  .disease-title {
+    text-align: center;
+    margin-top: 0;
+    font-size: 24px;
+    color: #ADBC9F;
+  }
+  
+  .disease-content {
+    display: flex;
+  }
+  
+  .left-content {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .left-content img {
+    width: 100%; /* Adjust the size of the image as needed */
+    max-width: 200px; /* Maximum width of the image */
+    height: auto;
+    display: block;
+    border-radius: 10px;
+  }
+  
+  .right-content {
+    flex: 3;
+    margin-left: 15px;
+    padding-left: 10px;
+    margin: 20px;
+  }
+  
+  .right-content h3 {
+    margin-top: 0;
+    /* margin: 0 auto 20px auto; */
+    font-size: 20px;
+    color: #ADBC9F;
+  }
+  
+  .right-content ul {
+    padding: 0;
+  }
+  
+  .right-content ul li {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #ADBC9F;
+    line-height: 1.4;
+  }
+  

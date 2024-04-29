@@ -8,7 +8,7 @@ export const AboutusCard = (props) => {
             <img src={image} alt="" />
             <h3>{name}</h3>
             <a
-                href="https://github.com/Roshan-Bhagchandani"
+                href={github}
                 target="_blank"
                 rel="noopener noreferrer"
             ><i class="fa fa-github" ></i
