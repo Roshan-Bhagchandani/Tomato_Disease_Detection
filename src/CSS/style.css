@@ -22,6 +22,9 @@ header{
     background-color: #436850;
     
 }
+.viewMoreLink{
+    color: #436850;
+}
 nav {
     display: flex;
     flex-direction: row-reverse;

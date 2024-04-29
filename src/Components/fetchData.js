@@ -11,7 +11,7 @@ import i10 from "../Images/10.jpeg";
 export const fetchData = (t) => {
     const data = [
       {
-        id: 1,
+        id: 2,
         disease: t("eb"),
         about: t("early-para"),
         image: i1,
@@ -19,7 +19,7 @@ export const fetchData = (t) => {
         p: t("p1"),
       },
       {
-        id: 2,
+        id: 4,
         disease: t("Late Blight"),
         about: t("late-para"),
         precaution: t("late-prec"),
@@ -27,7 +27,7 @@ export const fetchData = (t) => {
         p: t("p2"),
       },
       {
-        id: 3,
+        id: 1,
         disease: t("Bacterial Spot"),
         about: t("bacterial-para"),
         image: i3,
@@ -35,7 +35,7 @@ export const fetchData = (t) => {
         p: t("p3"),
       },
       {
-        id: 4,
+        id: 6,
         disease: t("Tomato Mosaic Virus"),
         about: t("tomato-para"),
         image: i4,
@@ -43,7 +43,7 @@ export const fetchData = (t) => {
         p: t("p4"),
       },
       {
-        id: 5,
+        id: 7,
         disease: t("Septoria Leaf Spot"),
         about: t("septoria-para"),
         image: i5,
@@ -51,7 +51,7 @@ export const fetchData = (t) => {
         p: t("p5"),
       },
       {
-        id: 6,
+        id: 3,
         disease: t("hl"),
         about: t("healthy-para"),
         image: i6,
@@ -59,7 +59,7 @@ export const fetchData = (t) => {
         p: t("p6"),
       },
       {
-        id: 7,
+        id: 8,
         disease: t("Tomato Leaf Curl Virus"),
         about: t("leaf-para"),
         image: i7,
@@ -67,7 +67,7 @@ export const fetchData = (t) => {
         p: t("p7"),
       },
       {
-        id: 8,
+        id: 11,
         disease: t("Tomato Target Spot"),
         about: t("target-para"),
         image: i8,
@@ -75,7 +75,7 @@ export const fetchData = (t) => {
         p: t("p8"),
       },
       {
-        id: 9,
+        id: 12,
         disease: t("Tomato Spider Mites"),
         about: t("spider-para"),
         image: i9,
@@ -83,7 +83,7 @@ export const fetchData = (t) => {
         p:t('p9')
       },
       {
-        id: 10,
+        id: 13,
         disease: t("Tomato Leaf Mould"),
         about: t("mould-para"),
         precaution: t("mould-prec"),

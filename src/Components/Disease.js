@@ -25,13 +25,13 @@ export const Disease = () => {
               <img src={img} alt="Disease" />
             </div>
             <div className="right-content">
-              <h3>About:</h3>
+              <h3>{t('About')}:</h3>
               <ul>
                 {about.map((paragraph, index) => (
                   <li key={index}>{paragraph}</li>
                 ))}
               </ul>
-              <h3>Precautions:</h3>
+              <h3>{t('Measures')}:</h3>
               <ul>
                 {precautions.map((precaution, index) => (
                   <li key={index}>{precaution}</li>
