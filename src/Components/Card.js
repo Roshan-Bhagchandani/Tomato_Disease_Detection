@@ -7,7 +7,7 @@ export const Card = (props) => {
         <div id="diseases">
             <img id="box" src= {pic} alt="user" />
             <h1 className="special"> {disease} </h1>
-            <p> {about} </p>
+            <p className="abt"> {about} </p>
         </div>
     )
 }

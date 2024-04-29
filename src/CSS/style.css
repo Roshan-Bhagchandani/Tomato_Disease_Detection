@@ -10,13 +10,19 @@ html{
 i{
     font-size: 22px
 }
+.abt{
+    padding: 1rem;
+}
+#diseases{
+    margin: 100px;
+}
 header{
     padding: 40px;
     background-color: #12372A;
     height: 10%;
 }
 .box1{
-    z-index: -1;
+    z-index: -2;
 }
 .lang{
     background-color: #436850;
@@ -84,6 +90,7 @@ body{
 }
 .box p{
     position: relative;
+
 }
 video{
     height: 250px;
@@ -157,7 +164,7 @@ button{
 
 
 #diseases{
-    margin: 20px auto;
+    margin: 40px auto;
     width: 90%;
     max-width: 1000px;
     border-radius: 20px;

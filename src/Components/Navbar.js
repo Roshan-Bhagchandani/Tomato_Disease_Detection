@@ -25,7 +25,7 @@ setLang(queryParams.get("lng"))
         };
     return (
       <nav>
-        <a href="/login.html">{t("Login")}</a>
+        <a href="/login">{t("Login")}</a>
         <a href="#" className="right-side">
           {t("Contact Us")}
         </a>
