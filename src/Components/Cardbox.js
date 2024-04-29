@@ -13,7 +13,7 @@ export const Cardbox = () => {
     return (
         <div>
             {data.map((item, index) => (
-                <Card key={index} disease={item.disease} about={item.about} />
+                <Card key={index} disease={item.disease} about={item.p} />
                 ))}
         </div>
     )
